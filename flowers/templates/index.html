@@ -1,1 +1,21 @@
 {% extends "base.html" %}
+{% block content %}
+    <div class="flex flex-col gap-4" style="width: 500px;">
+        <ul class="menu menu-horizontal bg-base-200 rounded-full w-full p-4 gap-2">
+            <button id="fileInput" class="btn btn-outline btn-circle">
+                <i class="fa-regular fa-images"></i>
+            </button>
+            <span class="flex-auto"></span>
+            <button id="prevImage" class="btn btn-outline btn-circle">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <button id="nextImage" class="btn btn-outline btn-circle">
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </ul>
+        <div class="card w-full aspect-square bg-base-300">
+
+        </div>
+    </div>
+    <input type="file" id="realFileInput" class="hidden" accept="image/*">
+{% endblock %}

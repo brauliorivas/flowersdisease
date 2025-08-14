@@ -3,11 +3,13 @@
 <head>
     {% load static %}
     <link rel="stylesheet" href="{% static 'dist/styles.css' %}">
+    <script src="{% static 'dist/scripts.js' %}"></script>
+    <script src="https://kit.fontawesome.com/a579f6da9c.js" crossorigin="anonymous"></script>
     <title>{% block title %}RosAI{% endblock %}</title>
 </head>
 
-<body>
-<div id="content">
+<body class="h-screen">
+<div id="content" class="w-full h-full flex flex-col items-center justify-center">
     {% block content %}{% endblock %}
 </div>
 </body>
