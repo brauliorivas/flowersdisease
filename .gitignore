@@ -211,3 +211,6 @@ __marimo__/
 
 # Node
 node_modules
+
+# Images
+prediction_images

@@ -1,6 +1,11 @@
 @import "tailwindcss";
+
 @plugin "daisyui" {
   themes: emerald --default, forest --prefersdark;
 }
 
 @custom-variant dark (&:where([data-theme=forest], [data-theme=forest] *));
+
+:root {
+  --image-size: 224px;
+}

@@ -7,8 +7,8 @@
   "scripts": {
     "build:css": "tailwindcss -i ./static/src/styles.css -o ./static/dist/styles.css --minify",
     "watch:css": "tailwindcss -i ./static/src/styles.css -o ./static/dist/styles.css --watch",
-    "build:js": "esbuild ./static/src/scripts.js --bundle --outfile=./static/dist/scripts.js --minify",
-    "watch:js": "esbuild ./static/src/scripts.js --bundle --outfile=./static/dist/scripts.js --watch",
+    "build:js": "esbuild ./static/src/js/scripts.js --bundle --outfile=./static/dist/scripts.js --minify",
+    "watch:js": "esbuild ./static/src/js/scripts.js --bundle --outfile=./static/dist/scripts.js --watch",
     "build": "npm run build:css && npm run build:js"
   },
   "devDependencies": {
