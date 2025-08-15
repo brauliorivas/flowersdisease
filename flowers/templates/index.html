@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="flex flex-col gap-4" style="width: 500px;">
-    <ul class="menu menu-horizontal bg-base-200 rounded-full w-full p-4 gap-2 dark:border">
+    <ul class="menu menu-horizontal bg-base-200 rounded-full w-full p-4 gap-2 dark:outline dark:outline-white items-center">
         <label class="swap swap-rotate btn btn-circle btn-outline">
             <input data-toggle-theme="emerald,forest" type="checkbox"/>
             <i class="swap-on fa-solid fa-sun"></i>
@@ -11,6 +11,8 @@
             <i class="fa-regular fa-images"></i>
         </button>
         <span class="flex-auto"></span>
+        <span id="count" class="text-xl"></span>
+        <span class="flex-auto"></span>
         <button id="prevButton" class="btn btn-outline btn-circle">
             <i class="fa-solid fa-arrow-left"></i>
         </button>
@@ -18,7 +20,7 @@
             <i class="fa-solid fa-arrow-right"></i>
         </button>
     </ul>
-    <div id="imageBox" class="card bg-base-300 dark:border overflow-clip" style="width: 500px; height: 500px;">
+    <div id="imageBox" class="card bg-base-300 outline-offset-0 outline outline-base-300 dark:outline-white overflow-clip" style="width: 500px; height: 500px;">
 
     </div>
 </div>

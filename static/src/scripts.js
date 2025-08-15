@@ -1,4 +1,3 @@
-
 const IMAGE_BOX_SIZE = 500;
 const WHEEL_SENSITIVITY = 0.4;
 
@@ -10,14 +9,15 @@ const imageStyle = {
 
 window.addEventListener("DOMContentLoaded", function () {
 
-    var realFileInput = document.getElementById("realFileInput");
-    var fileInput = document.getElementById("fileInput");
-    var imageBox = document.getElementById("imageBox");
-    var nextButton = document.getElementById("nextButton");
-    var prevButton = document.getElementById("prevButton");
+    const realFileInput = document.getElementById("realFileInput");
+    const fileInput = document.getElementById("fileInput");
+    const imageBox = document.getElementById("imageBox");
+    const nextButton = document.getElementById("nextButton");
+    const prevButton = document.getElementById("prevButton");
+    const count = document.getElementById("count");
 
-    var imageUrls = {};
-    var currentImageIndex = 0;
+    let imageUrls = {};
+    let currentImageIndex = 0;
 
     fileInput.addEventListener("click", function () {
         if (realFileInput) {
@@ -26,54 +26,67 @@ window.addEventListener("DOMContentLoaded", function () {
     });
 
     function setUpMovement(imageData) {
-        var imageElement = imageData.element;
+        const imageElement = imageData.element;
         imageElement.onload = function () {
-            if (imageElement.naturalWidth === IMAGE_BOX_SIZE && imageElement.naturalHeight === IMAGE_BOX_SIZE) {
+            imageData.width = imageElement.naturalWidth;
+            imageData.height = imageElement.naturalHeight;
+            if (imageData.width === IMAGE_BOX_SIZE && imageData.height === IMAGE_BOX_SIZE) {
                 return;
             }
-            if (imageElement.naturalWidth > imageElement.naturalHeight) {
+            if (imageData.width > imageData.height) {
+                imageData.xOffsetLimit = IMAGE_BOX_SIZE - (imageData.width / (imageData.height / IMAGE_BOX_SIZE));
                 imageElement.style.objectPosition = "0px 50%";
                 imageElement.addEventListener("mousewheel", function (event) {
                     event.preventDefault();
-                    var delta = event.deltaY * WHEEL_SENSITIVITY * -1;
+                    const delta = event.deltaY * WHEEL_SENSITIVITY * -1;
                     imageData.xOffset += delta;
+                    if (imageData.xOffset > 0) {
+                        imageData.xOffset = 0;
+                    } else if (imageData.xOffset < imageData.xOffsetLimit) {
+                        imageData.xOffset = imageData.xOffsetLimit;
+                    }
                     imageElement.style.objectPosition = `${imageData.xOffset}px 50%`;
                 });
             } else {
+                imageData.yOffsetLimit = IMAGE_BOX_SIZE - (imageData.height / (imageData.width / IMAGE_BOX_SIZE));
                 imageElement.style.objectPosition = "50% 0px";
                 imageElement.addEventListener("mousewheel", function (event) {
                     event.preventDefault();
-                    var delta = event.deltaY * WHEEL_SENSITIVITY * -1;
+                    const delta = event.deltaY * WHEEL_SENSITIVITY * -1;
                     imageData.yOffset += delta;
-                    imageElement.style.objectPosition = `50% ${imageData.yOffset}px `;
+                    if (imageData.yOffset > 0) {
+                        imageData.yOffset = 0;
+                    } else if (imageData.yOffset < imageData.yOffsetLimit) {
+                        imageData.yOffset = imageData.yOffsetLimit;
+                    }
+                    imageElement.style.objectPosition = `50% ${imageData.yOffset}px`;
                 });
             }
         }
     }
 
     function updateImage() {
-        var imageData = imageUrls[currentImageIndex];
+        const imageData = imageUrls[currentImageIndex];
         imageBox.innerHTML = "";
         imageBox.appendChild(imageData.element);
+        count.textContent = `${currentImageIndex + 1} / ${Object.keys(imageUrls).length}`;
     }
 
     realFileInput.addEventListener("change", function () {
         if (realFileInput.files && realFileInput.files.length > 0) {
             imageUrls = {};
-            for (var i = 0; i < realFileInput.files.length; i++) {
-                var url = URL.createObjectURL(realFileInput.files[i]);
-                var img = new Image();
+            for (let i = 0; i < realFileInput.files.length; i++) {
+                const url = URL.createObjectURL(realFileInput.files[i]);
+                const img = new Image();
                 img.src = url;
                 Object.assign(img.style, imageStyle);
                 imageUrls[i] = {
-                        element: img,
-                        file: realFileInput.files[i],
-                        height: img.height,
-                        width: img.width,
-                        xOffset: 0,
-                        yOffset: 0,
-                        previewUrl: url
-                    };
+                    element: img,
+                    file: realFileInput.files[i],
+                    xOffset: 0,
+                    yOffset: 0,
+                    previewUrl: url
+                };
                 setUpMovement(imageUrls[i]);
             }
             currentImageIndex = 0;
@@ -82,9 +95,9 @@ window.addEventListener("DOMContentLoaded", function () {
     });
 
     function navigateImages(offset) {
-        var numberOfImages = Object.keys(imageUrls).length;
+        const numberOfImages = Object.keys(imageUrls).length;
         if (numberOfImages > 0) {
-            var newImageIndex = currentImageIndex + offset;
+            let newImageIndex = currentImageIndex + offset;
             if (newImageIndex < 0) {
                 newImageIndex = numberOfImages - 1;
             } else if (newImageIndex >= numberOfImages) {
