@@ -1,7 +1,7 @@
 from django.shortcuts import redirect
 from django.core.files.uploadedfile import UploadedFile
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 import json
 
 from .constants import LABELS
@@ -44,6 +44,6 @@ def predict(request):
                 prediction_response.predictions.add(prediction)
                 prediction_response.save()
 
-        return redirect(to=f"/results/{prediction_response.uuid}")
+        return JsonResponse({'redirect_url': f"/results/{prediction_response.uuid}"})
 
     return HttpResponse("Solo se permite POST", status=405)

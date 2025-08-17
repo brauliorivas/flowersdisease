@@ -71,13 +71,11 @@ export function init() {
 				headers: {
 					"X-CSRFToken": csrftoken
 				}
-			}).then(response => {
-				if (response.ok) {
-					console.log("Images uploaded successfully!");
-				} else {
-					console.log("Failed to upload images.");
-				}
-			}).catch(async () => {
+			}).then(response => response.json())
+			    .then(data => {
+                    window.location.href = data.redirect_url;
+			    }
+			).catch(async () => {
 				console.log("Failed to upload images.");
 			}).finally(() => {
 
