@@ -18,7 +18,7 @@ class Prediction(models.Model):
 
 
 class PredictionResponse(models.Model):
-    uuid = models.UUIDField(primary_key=True, editable=False, auto_created=True, default=uuid.uuid4())
+    uuid = models.UUIDField(primary_key=True, editable=False, auto_created=True, default=uuid.uuid4)
     prediction_request = models.ForeignKey(PredictionRequest, on_delete=models.CASCADE)
     predictions = models.ManyToManyField(Prediction)
     created_at = models.DateTimeField(auto_now_add=True)
