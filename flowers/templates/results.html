@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block body_attributes %}data-view="results"{% endblock %}
+{% block content %}
+<div class="flex flex-col gap-4">
+    <ul class="menu menu-horizontal bg-base-200 rounded-full w-full p-3 gap-2 dark:outline dark:outline-white items-center">
+        <button id="fileInput" class="btn btn-outline btn-circle btn-secondary tooltip" data-tip="Subir Imágenes">
+            <i class="fa-regular fa-images"></i>
+        </button>
+        {% csrf_token %}
+        <button id="submitButton" class="btn btn-outline btn-circle btn-primary tooltip" data-tip="Analizar">
+            <i class="fa-solid fa-hexagon-nodes"></i>
+        </button>
+        <span class="flex-auto"></span>
+        <label class="swap swap-rotate btn btn-circle btn-outline tooltip" data-tip="Cambiar Tema">
+            <input data-toggle-theme="emerald,forest" type="checkbox"/>
+            <i class="swap-on fa-solid fa-sun"></i>
+            <i class="swap-off fa-solid fa-moon"></i>
+        </label>
+    </ul>
+    <div id="imageBox" data-data="{{ data }}"
+         class="card bg-base-300 outline-offset-0 outline outline-base-300 dark:outline-white overflow-clip relative"
+         style="width: var(--image-size); height: var(--image-size);"
+    >
+    </div>
+    <ul class="menu menu-horizontal bg-base-200 rounded-full w-full p-3 gap-2 dark:outline dark:outline-white items-center">
+        <span class="flex-auto"></span>
+        <span id="count" class="text-lg"></span>
+        <span class="flex-auto"></span>
+        <button id="prevButton" class="btn btn-outline btn-circle tooltip" data-tip="Anterior">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <button id="nextButton" class="btn btn-outline btn-circle tooltip" data-tip="Siguiente">
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
+    </ul>
+</div>
+{% endblock %}

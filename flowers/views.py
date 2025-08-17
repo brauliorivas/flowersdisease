@@ -12,9 +12,29 @@ from .services.predictor import make_prediction
 from .types import ResizeData
 
 
-# Create your views here.
 def index(request):
     return render(request, "index.html")
+
+
+def results(request, uuid):
+    try:
+        prediction_response = PredictionResponse.objects.get(uuid=uuid)
+    except PredictionResponse.DoesNotExist:
+        return HttpResponse("No se encontró la respuesta de predicción", status=404)
+
+    context = {
+        'created_at': prediction_response.created_at.isoformat(),
+        'images': []
+    }
+
+    images = prediction_response.prediction_request.images.all()
+    for img in images:
+        context['images'].append({
+            'url': img.image.url,
+            'predictions': [{prediction.label: prediction.confidence} for prediction in list(img.prediction_set.all())]
+        })
+
+    return render(request, "results.html", {'data': json.dumps(context)})
 
 
 def predict(request):

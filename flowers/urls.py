@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("", views.index, name="index"),
     path("predict", views.predict, name="predict"),
+    path("results/<uuid:uuid>", views.results, name="results"),
 ]
 
 if settings.DEBUG:

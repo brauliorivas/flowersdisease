@@ -1,8 +1,10 @@
 
 import { init as initIndex } from './index.js';
+import { init as initResults } from './results.js';
 
 const viewMap = {
   'index': initIndex,
+  'results': initResults,
 };
 
 document.addEventListener('DOMContentLoaded', () => {
