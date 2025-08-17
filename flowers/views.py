@@ -23,7 +23,7 @@ def results(request, uuid):
         return HttpResponse("No se encontró la respuesta de predicción", status=404)
 
     context = {
-        'created_at': prediction_response.created_at.isoformat(),
+        'created_at': prediction_response.created_at,
         'images': []
     }
 
@@ -31,10 +31,11 @@ def results(request, uuid):
     for img in images:
         context['images'].append({
             'url': img.image.url,
-            'predictions': [{prediction.label: prediction.confidence} for prediction in list(img.prediction_set.all())]
+            'predictions': [{'label': prediction.label, 'confidence': prediction.confidence} for prediction in
+                            list(img.prediction_set.all())]
         })
 
-    return render(request, "results.html", {'data': json.dumps(context)})
+    return render(request, "results.html", {'data': json.dumps(context['images']), 'raw_data': context})
 
 
 def predict(request):

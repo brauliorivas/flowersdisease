@@ -3,6 +3,6 @@ Django==5.2.4
 sqlparse==0.5.3
 django-browser-reload
 pillow
-tensorflow==2.19.0
+tensorflow
 keras==3.10.0
-numpy==2.0.2
+numpy
