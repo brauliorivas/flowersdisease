@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block body_attributes %}data-view="results"{% endblock %}
+{% block content %}
+    <div class="flex flex-col gap-4">
+        <ul class="menu menu-horizontal bg-base-200 rounded-full w-full p-3 gap-2 dark:outline dark:outline-white items-center">
+            <a href="/" class="btn btn-outline btn-circle btn-primary tooltip" data-tip="Nuevo Análisis">
+                <i class="fa-solid fa-plus"></i>
+            </a>
+            <span class="flex-auto"></span>
+            <span id="count" class="text-lg">{{ raw_data.created_at }}</span>
+            <span class="flex-auto"></span>
+            <label class="swap swap-rotate btn btn-circle btn-outline tooltip" data-tip="Cambiar Tema">
+                <input data-toggle-theme="emerald,forest" type="checkbox"/>
+                <i class="swap-on fa-solid fa-sun"></i>
+                <i class="swap-off fa-solid fa-moon"></i>
+            </label>
+        </ul>
+        <div id="imageBox" data-data="{{ data }}"
+             class="carousel carousel-vertical rounded-box bg-base-300 outline-offset-0 outline outline-base-300 dark:outline-white"
+             style="width: calc(var(--image-size) * 2); height: var(--image-size);"
+        >
+            {% for image in raw_data.images %}
+                <div class="flex carousel-item h-full w-full">
+                    <img src="{{ image.url }}" alt=""/>
+                    <div style="height: var(--image-size); width: var(--image-size);">
+                        <canvas id="polar-{{ forloop.counter0 }}"></canvas>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <ul id="legend"
+            style="max-width: calc(var(--image-size) * 2)"
+            class="menu menu-horizontal bg-base-200 w-full rounded-box p-3 gap-2 dark:outline dark:outline-white items-center justify-center flex-wrap">
+        </ul>
+    </div>
+{% endblock %}

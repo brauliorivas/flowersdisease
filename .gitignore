@@ -205,3 +205,15 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Pycharm
+.idea
+
+# Node
+node_modules
+
+# Media
+media
+
+# Trained models
+trained_models
