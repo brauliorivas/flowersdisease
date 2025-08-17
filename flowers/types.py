@@ -1,0 +1,1 @@
+type ResizeData = dict[str, int | float]

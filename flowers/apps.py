@@ -9,7 +9,8 @@ class FlowersConfig(AppConfig):
 
     def ready(self):
         try:
-            self.model = load_model('flowers/trained_models/best_model.h5')
-            print("Model loaded successfully.")
+            if not self.model:
+                self.model = load_model('flowers/trained_models/best_model.h5')
+                print("Model loaded successfully.")
         except Exception as e:
             print(f"Error loading model: {e}")
