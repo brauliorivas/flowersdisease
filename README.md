@@ -75,9 +75,13 @@ The square will show you which section of the image the CNN will actually analyz
 
 You can use your mouse scroll wheel to determine where the focus should be. Use the arrow buttons to navigate through your selected images.
 
+### Analyze images
+
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/8e3298e3-7146-4cf7-83b9-0079e264fd5f" />
 
 Use the network button to analyze your selected images. You will be redirected to the results view.
+
+### Review results
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/20762048-dd93-4dbc-bd3c-5f0434d9b21b" />
 
